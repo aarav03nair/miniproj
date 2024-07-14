@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+<h2>Admin Dashboard</h2>
+<form action="/admin/students" method="post">
+    <div>
+        <label>Username:</label>
+        <input type="text" name="username"/>
+    </div>
+    <div>
+        <label>Password:</label>
+        <input type="password" name="password"/>
+    </div>
+    <div>
+        <button type="submit">Add Student</button>
+    </div>
+</form>
+<h3>Student List</h3>
+<ul>
+    <li th:each="student : ${students}">
+        <span th:text="${student.username}"></span>
+        <span th:text="${student.id}"></span>
+        <form action="/admin/students/${student.id}" method="post">
+            <input type="hidden" name="_method" value="delete"/>
+            <button type="submit">Delete</button>
+        </form>
+        <form action="/admin/students/{id}" method="post">
+            <label>New Password:</label>
+            <input type="password" name="password"/>
+            <button type="submit">Update Password</button>
+        </form>
+    </li>
+</ul>
+</body>
+</html>
